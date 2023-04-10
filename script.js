@@ -1,9 +1,9 @@
 var form = document.getElementById('addForm');
 var itemList = document.getElementById('items');
-
+var filter = document.getElementById('filter')
 //form submit event
 form.addEventListener('submit', addItem);
-
+filter.addEventListener('keyup', filterItems)
 function addItem(e){
     e.preventDefault();
 
@@ -53,3 +53,17 @@ li.appendChild(editBtn)
 
 itemList.appendChild(li);
 
+//filter Items
+function filterItems(e){
+    // convert text to lowercase
+    var text = e.target.value.toLowerCase();
+    var items = itemList.getElementsByTagName('li');
+    //Convert to array
+    Array.from(items).forEach(function(item){
+        var itemName = item.firstChild.textContent;
+        if(itemName.toLowerCase().indexOf(text) != -1){
+            item.style.display = 'block'
+        }
+        else{item.style.display = 'none'}    
+    })
+    }
